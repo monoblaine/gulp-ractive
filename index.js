@@ -18,7 +18,7 @@ function gulpRactive(options)
 		var filecontents = "";
 		
 		try {
-			filecontents = String(file.contents);
+			filecontents = String(file.contents).replace(/\r?\n\s*/g, "");
 			
 			//Parse template in Ractive
 			filecontents = Ractive.parse(filecontents, options);
