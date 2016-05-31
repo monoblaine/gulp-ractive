@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "gulp-util": "~2.2.14",
-    "through2": "^0.5",
-    "ractive": "git://github.com/ractivejs/ractive.git#edge"
+    "ractive": "git+https://gitlab.com/FrontEndProjects--js/RactiveJS.git#v0.8.201605311141",
+    "through2": "^0.5"
   },
   "engines": {
     "node": ">= 0.9"
