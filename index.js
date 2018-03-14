@@ -14,12 +14,12 @@ function gulpRactive(options)
 			this.emit('error', new PluginError(PLUGIN_NAME, 'Streams are not supported!'));
 			return callback();
 		}
-		
+
 		var filecontents = "";
-		
+
 		try {
 			filecontents = String(file.contents).replace(/\r?\n\s*/g, "");
-			
+
 			//Parse template in Ractive
 			filecontents = Ractive.parse(filecontents, options);
 			filecontents = JSON.stringify(filecontents);
@@ -32,7 +32,7 @@ function gulpRactive(options)
 			this.push(file);
 			return callback();
 		}
-		
+
 		callback();
 	});
 
