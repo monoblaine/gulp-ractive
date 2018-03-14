@@ -6,8 +6,10 @@ var PluginError = gulputil.PluginError;
 
 const PLUGIN_NAME = 'gulp-ractive';
 
-function gulpRactive(options)
+function gulpRactive(options, cfg)
 {
+    cfg = cfg || {};
+
 	var stream = through.obj(function(file, enc, callback) {
 		if (file.isStream())
 		{
@@ -20,9 +22,22 @@ function gulpRactive(options)
 		try {
 			filecontents = String(file.contents).replace(/\r?\n\s*/g, "");
 
+            var prefix = '';
+
+            if (cfg.asJsVar === true) {
+                var templateName = filecontents.match(/\{\{!# +([^}]+)\}\}/).pop();
+
+                prefix = ';Ractive.templates.' + templateName + '=';
+            }
+
 			//Parse template in Ractive
 			filecontents = Ractive.parse(filecontents, options);
 			filecontents = JSON.stringify(filecontents);
+
+            if (cfg.asJsVar === true) {
+                filecontents = prefix + filecontents + ';';
+            }
+
 			file.contents = new Buffer(filecontents);
 			this.push(file);
 		}
